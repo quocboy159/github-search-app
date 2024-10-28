@@ -34,6 +34,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             <h3 className="text-start">Users</h3>
           </div>
         </div>
+
         <div className="row">
           {users.map(({ node }) => (
             <div

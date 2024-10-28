@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { GET_REPO_ISSUES } from "../graphql/queries";
-import { set } from "react-hook-form";
 
 const PAGE_SIZE = 10;
 const MAX_FETCH_SIZE = 100; // GitHub's maximum limit

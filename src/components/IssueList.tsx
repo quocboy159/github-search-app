@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, PageItem, Spinner } from "react-bootstrap";
-import { calculateDaysBetweenDates } from "../utils/helpers";
+import { Button, Spinner } from "react-bootstrap";
 import IssueModal from "./IssueModal";
 import PaginationComponent from "./PaginationComponent";
+import { formatDistanceToNow } from "date-fns";
 
 const PAGE_SIZE = 10;
 
@@ -93,7 +93,7 @@ const IssueList: React.FC<IssueListProps> = ({
                   </a>{" "}
                 </div>
                 <div className="col text-end">
-                  {calculateDaysBetweenDates(createdAt)} days ago by{" "}
+                  {formatDistanceToNow(createdAt)} by{" "}
                   {author?.login || "Unknown"}
                 </div>
               </div>

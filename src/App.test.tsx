@@ -1,9 +1,15 @@
-import React from 'react';
+
 import { render, screen } from '@testing-library/react';
+import { act } from 'react';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+test('init page', async () => {
+  // eslint-disable-next-line testing-library/no-unnecessary-act
+  await act(async () => {
+    render(<App />);
+  });
+
+  const brandNameElement = screen.getByText(/GitHub Search/i);
+  expect(brandNameElement).toBeInTheDocument();
 });

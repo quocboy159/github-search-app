@@ -28,7 +28,7 @@ jobs:
 
     - name: Set environment variables
       run: |
-      echo "REACT_APP_GITHUB_TOKEN=${{ secrets.REACT_APP_GITHUB_TOKEN }}" >> .env
+        echo "REACT_APP_GITHUB_TOKEN=${{ secrets.REACT_APP_GITHUB_TOKEN }}" >> .env
 
     - name: Run tests
       run: npm test

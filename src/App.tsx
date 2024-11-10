@@ -1,9 +1,9 @@
-import "./App.scss";
-import { ApolloProvider } from "@apollo/client";
-import client from "./apolloClient";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Container, Navbar } from "react-bootstrap";
-import Home from "./pages/Home";
+import './App.scss';
+import { ApolloProvider } from '@apollo/client';
+import client from './apolloClient';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Container, Navbar } from 'react-bootstrap';
+import Home from './pages/Home';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

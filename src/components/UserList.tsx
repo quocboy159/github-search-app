@@ -1,6 +1,6 @@
-import React from "react";
-import UserRepositories from "./UserRepositories";
-import { useUserRepositories } from "../hooks/useUserRepositories";
+import React from 'react';
+import UserRepositories from './UserRepositories';
+import { useUserRepositories } from '../hooks/useUserRepositories';
 
 type User = {
   node: {
@@ -23,7 +23,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
     loading,
     error,
     setSelectedUser,
-    handlePageChange,
+    handlePageChange
   } = useUserRepositories();
 
   return (
@@ -40,13 +40,8 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
             <div
               key={node.id}
               className="col d-inline-block"
-              onClick={() => setSelectedUser(node.login)}
-            >
-              <img
-                src={node.avatarUrl}
-                alt={node.login}
-                className="img-thumbnail"
-              />
+              onClick={() => setSelectedUser(node.login)}>
+              <img src={node.avatarUrl} alt={node.login} className="img-thumbnail" />
               <h5 className="py-2">{node.login}</h5>
             </div>
           ))}

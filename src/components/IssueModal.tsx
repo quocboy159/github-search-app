@@ -1,9 +1,9 @@
-import React from "react";
-import { useMutation } from "@apollo/client";
-import { Modal, Button, Form } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import { CREATE_ISSUE } from "../graphql/mutations";
-import { toast } from "react-toastify";
+import React from 'react';
+import { useMutation } from '@apollo/client';
+import { Modal, Button, Form } from 'react-bootstrap';
+import { useForm } from 'react-hook-form';
+import { CREATE_ISSUE } from '../graphql/mutations';
+import { toast } from 'react-toastify';
 
 interface IssueModalProps {
   isOpen: boolean;
@@ -23,13 +23,13 @@ const IssueModal: React.FC<IssueModalProps> = ({
   onClose,
   repositoryId,
   userName,
-  onSuccess,
+  onSuccess
 }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
+    reset
   } = useForm<IssueFormInputs>();
   const [createIssue] = useMutation(CREATE_ISSUE);
 
@@ -39,16 +39,16 @@ const IssueModal: React.FC<IssueModalProps> = ({
         variables: {
           repositoryId,
           title: data.title,
-          body: data.body,
-        },
+          body: data.body
+        }
       });
-      toast.success("Issue created successfully!");
+      toast.success('Issue created successfully!');
       onClose();
       reset();
       onSuccess(userName);
     } catch (error) {
-      console.error("Error creating issue:", error);
-      toast.error("Failed to create issue. Please try again.");
+      console.error('Error creating issue:', error);
+      toast.error('Failed to create issue. Please try again.');
     }
   };
 
@@ -64,12 +64,10 @@ const IssueModal: React.FC<IssueModalProps> = ({
             <Form.Control
               type="text"
               placeholder="Issue Title"
-              {...register("title", { required: "Title is required" })}
+              {...register('title', { required: 'Title is required' })}
               isInvalid={!!errors.title}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.title?.message}
-            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.title?.message}</Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="issueBody">
             <Form.Label>Description</Form.Label>
@@ -77,12 +75,10 @@ const IssueModal: React.FC<IssueModalProps> = ({
               as="textarea"
               rows={3}
               placeholder="Issue Description"
-              {...register("body", { required: "Description is required" })}
+              {...register('body', { required: 'Description is required' })}
               isInvalid={!!errors.body}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.body?.message}
-            </Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">{errors.body?.message}</Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>

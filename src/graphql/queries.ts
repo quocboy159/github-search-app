@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
 export const SEARCH_USERS = gql`
   query SearchUsers($query: String!) {
@@ -19,11 +19,7 @@ export const SEARCH_USERS = gql`
 export const GET_USER_REPOS = gql`
   query GetUserRepos($username: String!, $first: Int!, $after: String) {
     user(login: $username) {
-      repositories(
-        first: $first
-        after: $after
-        orderBy: { field: UPDATED_AT, direction: DESC }
-      ) {
+      repositories(first: $first, after: $after, orderBy: { field: UPDATED_AT, direction: DESC }) {
         nodes {
           id
           name

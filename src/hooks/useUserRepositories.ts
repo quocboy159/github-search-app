@@ -1,24 +1,21 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
-import { GET_USER_REPOS } from "../graphql/queries";
+import { useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_USER_REPOS } from '../graphql/queries';
 
 const PAGE_SIZE = 10;
 const MAX_FETCH_SIZE = 100; // GitHub's maximum limit
 
 export const useUserRepositories = () => {
-  const [selectedUser, setSelectedUser] = useState<string>("");
+  const [selectedUser, setSelectedUser] = useState<string>('');
   const [currentPage, setCurrentPage] = useState(1);
   const [endCursor, setEndCursor] = useState<string | null>(null);
   const [repositories, setRepositories] = useState<any>(null);
   const [totalCount, setTotalCount] = useState<number>(0);
 
-  const { loading, error, data, fetchMore, refetch } = useQuery(
-    GET_USER_REPOS,
-    {
-      variables: { username: selectedUser, first: PAGE_SIZE, after: null },
-      skip: !selectedUser,
-    }
-  );
+  const { loading, error, data, fetchMore, refetch } = useQuery(GET_USER_REPOS, {
+    variables: { username: selectedUser, first: PAGE_SIZE, after: null },
+    skip: !selectedUser
+  });
 
   useEffect(() => {
     if (data?.user?.repositories) {
@@ -41,18 +38,15 @@ export const useUserRepositories = () => {
     } else if (allFetchedRepositories.edges) {
       desiredRepositories = {
         ...allFetchedRepositories,
-        edges: allFetchedRepositories.edges.slice(-PAGE_SIZE),
+        edges: allFetchedRepositories.edges.slice(-PAGE_SIZE)
       };
     } else if (allFetchedRepositories.nodes) {
       desiredRepositories = {
         ...allFetchedRepositories,
-        nodes: allFetchedRepositories.nodes.slice(-PAGE_SIZE),
+        nodes: allFetchedRepositories.nodes.slice(-PAGE_SIZE)
       };
     } else {
-      console.error(
-        "Unexpected repository data structure:",
-        allFetchedRepositories
-      );
+      console.error('Unexpected repository data structure:', allFetchedRepositories);
     }
 
     return desiredRepositories;
@@ -68,7 +62,7 @@ export const useUserRepositories = () => {
         const result = await refetch({
           username: selectedUser,
           first: fetchSize,
-          after: null,
+          after: null
         });
         const repos = calculateRepositoriesList(result.data.user.repositories);
         setRepositories(repos);
@@ -78,8 +72,8 @@ export const useUserRepositories = () => {
         const result = await fetchMore({
           variables: {
             after: endCursor,
-            first: PAGE_SIZE,
-          },
+            first: PAGE_SIZE
+          }
         });
         setRepositories(result.data.user.repositories);
         setEndCursor(result.data.user.repositories.pageInfo.endCursor);
@@ -88,7 +82,7 @@ export const useUserRepositories = () => {
         const result = await refetch({
           username: selectedUser,
           first: fetchSize,
-          after: null,
+          after: null
         });
         const repos = calculateRepositoriesList(result.data.user.repositories);
         setRepositories(repos);
@@ -96,7 +90,7 @@ export const useUserRepositories = () => {
       }
       setCurrentPage(pageNumber);
     } catch (error) {
-      console.error("Error changing page:", error);
+      console.error('Error changing page:', error);
     }
   };
 
@@ -108,6 +102,6 @@ export const useUserRepositories = () => {
     loading,
     error,
     setSelectedUser,
-    handlePageChange,
+    handlePageChange
   };
 };

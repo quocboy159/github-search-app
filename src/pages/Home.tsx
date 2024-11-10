@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import { useLazyQuery } from "@apollo/client";
-import UserList from "../components/UserList";
-import { SEARCH_USERS } from "../graphql/queries";
-import { Button, Form, Spinner } from "react-bootstrap";
+import React, { useState } from 'react';
+import { useLazyQuery } from '@apollo/client';
+import UserList from '../components/UserList';
+import { SEARCH_USERS } from '../graphql/queries';
+import { Button, Form, Spinner } from 'react-bootstrap';
 
 const Home = () => {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [searchUsers, { loading, data }] = useLazyQuery(SEARCH_USERS);
 
   const handleSearch = (e: React.FormEvent) => {

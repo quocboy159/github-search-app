@@ -1,8 +1,8 @@
-import React from "react";
-import { Spinner } from "react-bootstrap";
-import IssueList from "./IssueList";
-import PaginationComponent from "./PaginationComponent";
-import { useUserIssues } from "../hooks/useUserIssues";
+import React from 'react';
+import { Spinner } from 'react-bootstrap';
+import IssueList from './IssueList';
+import PaginationComponent from './PaginationComponent';
+import { useUserIssues } from '../hooks/useUserIssues';
 
 const PAGE_SIZE = 10;
 
@@ -23,7 +23,7 @@ const UserRepositories: React.FC<UserRepositoriesProps> = ({
   repositories,
   currentPage,
   totalPages,
-  handlePageChange,
+  handlePageChange
 }) => {
   const {
     issues,
@@ -36,12 +36,10 @@ const UserRepositories: React.FC<UserRepositoriesProps> = ({
     selectedRepoId,
     handlerSelectedRepository,
     handlerReloadList,
-    resetIssues,
+    resetIssues
   } = useUserIssues();
 
-  const handlerReposListPageChange = async (
-    pageNumber: number
-  ): Promise<void> => {
+  const handlerReposListPageChange = async (pageNumber: number): Promise<void> => {
     await handlePageChange(pageNumber);
     resetIssues();
   };
@@ -60,20 +58,17 @@ const UserRepositories: React.FC<UserRepositoriesProps> = ({
 
         {repositories.length > 0 && (
           <div className="container">
-            {repositories.map(
-              ({ id, name, stargazerCount, watchers: { totalCount } }: any) => (
-                <div
-                  className="row py-2 mx-0 border-bottom hover-effect"
-                  key={id}
-                  onClick={() => handlerSelectedRepository(name, id, userName)}
-                >
-                  <div className="col text-start">{name}</div>
-                  <div className="col text-end">
-                    {stargazerCount} stars / {totalCount} watching
-                  </div>
+            {repositories.map(({ id, name, stargazerCount, watchers: { totalCount } }: any) => (
+              <div
+                className="row py-2 mx-0 border-bottom hover-effect"
+                key={id}
+                onClick={() => handlerSelectedRepository(name, id, userName)}>
+                <div className="col text-start">{name}</div>
+                <div className="col text-end">
+                  {stargazerCount} stars / {totalCount} watching
                 </div>
-              )
-            )}
+              </div>
+            ))}
             <PaginationComponent
               currentPage={currentPage}
               totalCount={totalPages}

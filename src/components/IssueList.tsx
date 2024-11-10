@@ -1,11 +1,10 @@
-import React from "react";
-import { Button, Spinner } from "react-bootstrap";
-import IssueModal from "./IssueModal";
-import PaginationComponent from "./PaginationComponent";
-import { formatDistanceToNow } from "date-fns";
-import { Issue } from "../models/IssueModel";
-import { useModel } from "../hooks/useModel";
-
+import React from 'react';
+import { Button, Spinner } from 'react-bootstrap';
+import IssueModal from './IssueModal';
+import PaginationComponent from './PaginationComponent';
+import { formatDistanceToNow } from 'date-fns';
+import { Issue } from '../models/IssueModel';
+import { useModel } from '../hooks/useModel';
 
 const PAGE_SIZE = 10;
 
@@ -32,7 +31,7 @@ const IssueList: React.FC<IssueListProps> = ({
   totalPages,
   handlePageChange,
   loading,
-  error,
+  error
 }) => {
   const { isShow, setIsShow } = useModel(false);
 
@@ -46,11 +45,7 @@ const IssueList: React.FC<IssueListProps> = ({
           <h3 className="text-start">{repoName}'s Open Issues</h3>
         </div>
         <div className="col text-end">
-          <Button
-            variant="primary"
-            onClick={() => setIsShow(true)}
-            className="mb-3"
-          >
+          <Button variant="primary" onClick={() => setIsShow(true)} className="mb-3">
             Create New Issue
           </Button>
         </div>
@@ -65,33 +60,23 @@ const IssueList: React.FC<IssueListProps> = ({
       {issues.length === 0 && <div>There is no data</div>}
       {issues.length > 0 && (
         <div className="container">
-          {issues.map(
-            (
-              { id, number, title, createdAt, author }: Issue,
-              index: number
-            ) => (
-              <div
-                className="row py-2 mx-0 border-bottom hover-effect"
-                key={id}
-              >
-                <div className="col text-start">
-                  {title}{" "}
-                  <a
-                    href={`https://github.com/${userName}/${repoName}/issues/${number}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-decoration-none"
-                  >
-                    #{PAGE_SIZE * (currentPage - 1) + index + 1}
-                  </a>{" "}
-                </div>
-                <div className="col text-end">
-                  {formatDistanceToNow(createdAt)} by{" "}
-                  {author?.login || "Unknown"}
-                </div>
+          {issues.map(({ id, number, title, createdAt, author }: Issue, index: number) => (
+            <div className="row py-2 mx-0 border-bottom hover-effect" key={id}>
+              <div className="col text-start">
+                {title}{' '}
+                <a
+                  href={`https://github.com/${userName}/${repoName}/issues/${number}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-decoration-none">
+                  #{PAGE_SIZE * (currentPage - 1) + index + 1}
+                </a>{' '}
               </div>
-            )
-          )}
+              <div className="col text-end">
+                {formatDistanceToNow(createdAt)} by {author?.login || 'Unknown'}
+              </div>
+            </div>
+          ))}
           <PaginationComponent
             currentPage={currentPage}
             totalCount={totalPages}

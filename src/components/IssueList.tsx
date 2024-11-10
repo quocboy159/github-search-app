@@ -1,23 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Spinner } from "react-bootstrap";
 import IssueModal from "./IssueModal";
 import PaginationComponent from "./PaginationComponent";
 import { formatDistanceToNow } from "date-fns";
+import { Issue } from "../models/IssueModel";
+import { useToggle } from "../hooks/useToggle";
 
 const PAGE_SIZE = 10;
-
-type Author = {
-  login: string;
-};
-
-type Issue = {
-  id: string;
-  number: number;
-  title: string;
-  body: string;
-  createdAt: Date;
-  author: Author | null;
-};
 
 interface IssueListProps {
   userName: string;
@@ -44,7 +33,7 @@ const IssueList: React.FC<IssueListProps> = ({
   loading,
   error,
 }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isToggled, setToggle } = useToggle(false);
 
   if (loading) return <Spinner animation="border" />;
   if (error) return <p>Error: {error.message}</p>;
@@ -58,7 +47,7 @@ const IssueList: React.FC<IssueListProps> = ({
         <div className="col text-end">
           <Button
             variant="primary"
-            onClick={() => setIsModalOpen(true)}
+            onClick={() => setToggle(true)}
             className="mb-3"
           >
             Create New Issue
@@ -66,8 +55,8 @@ const IssueList: React.FC<IssueListProps> = ({
         </div>
       </div>
       <IssueModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={isToggled}
+        onClose={() => setToggle(false)}
         repositoryId={repoId}
         userName={userName}
         onSuccess={reloadList}
@@ -76,13 +65,16 @@ const IssueList: React.FC<IssueListProps> = ({
       {issues.length > 0 && (
         <div className="container">
           {issues.map(
-            ({ id, number, title, createdAt, author }: Issue, index: number) => (
+            (
+              { id, number, title, createdAt, author }: Issue,
+              index: number
+            ) => (
               <div
                 className="row py-2 mx-0 border-bottom hover-effect"
                 key={id}
               >
                 <div className="col text-start">
-                  {title} {' '}
+                  {title}{" "}
                   <a
                     href={`https://github.com/${userName}/${repoName}/issues/${number}`}
                     target="_blank"

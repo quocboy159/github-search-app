@@ -4,7 +4,7 @@ import IssueModal from "./IssueModal";
 import PaginationComponent from "./PaginationComponent";
 import { formatDistanceToNow } from "date-fns";
 import { Issue } from "../models/IssueModel";
-import { useToggle } from "../hooks/useToggle";
+import { useModel } from "../hooks/useModel";
 
 
 const PAGE_SIZE = 10;
@@ -34,7 +34,7 @@ const IssueList: React.FC<IssueListProps> = ({
   loading,
   error,
 }) => {
-  const { isToggled, setToggle } = useToggle(false);
+  const { isShow, setIsShow } = useModel(false);
 
   if (loading) return <Spinner animation="border" />;
   if (error) return <p>Error: {error.message}</p>;
@@ -48,7 +48,7 @@ const IssueList: React.FC<IssueListProps> = ({
         <div className="col text-end">
           <Button
             variant="primary"
-            onClick={() => setToggle(true)}
+            onClick={() => setIsShow(true)}
             className="mb-3"
           >
             Create New Issue
@@ -56,8 +56,8 @@ const IssueList: React.FC<IssueListProps> = ({
         </div>
       </div>
       <IssueModal
-        isOpen={isToggled}
-        onClose={() => setToggle(false)}
+        isOpen={isShow}
+        onClose={() => setIsShow(false)}
         repositoryId={repoId}
         userName={userName}
         onSuccess={reloadList}

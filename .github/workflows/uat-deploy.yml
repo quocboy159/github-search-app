@@ -1,0 +1,50 @@
+name: NodeJS with Webpack
+
+on:
+  push:
+    branches: [ "uat" ]
+  pull_request:
+    branches: [ "uat" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Set environment variables
+      run: |
+        echo "REACT_APP_GITHUB_TOKEN=${{ secrets.REACT_APP_UAT_GITHUB_TOKEN }}" >> .env
+
+    - name: Run tests
+      run: npm test
+    
+    - name: Build
+      run: npm run build
+
+    - name: Install Vercel CLI
+      run: npm install --global vercel@latest
+
+    - name: Link to Vercel Project
+      run: vercel link --confirm --token=${{ secrets.VERCEL_TOKEN }}
+
+    - name: Deploy to Vercel
+      run: |
+        vercel pull --yes --environment=uat --token=${{ secrets.VERCEL_TOKEN }}
+        vercel build --uat --token=${{ secrets.VERCEL_TOKEN }}
+        vercel deploy --prebuilt --uat --token=${{ secrets.VERCEL_TOKEN }}
+

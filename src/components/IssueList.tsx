@@ -6,6 +6,7 @@ import { formatDistanceToNow } from "date-fns";
 import { Issue } from "../models/IssueModel";
 import { useToggle } from "../hooks/useToggle";
 
+
 const PAGE_SIZE = 10;
 
 interface IssueListProps {

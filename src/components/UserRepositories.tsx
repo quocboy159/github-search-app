@@ -52,13 +52,14 @@ const UserRepositories: React.FC<UserRepositoriesProps> = ({
       <div className="container py-5">
         <div className="row pb-3">
           <div className="col">
-            <h3 className="text-start">{userName}'s Repositories</h3>
+            <h3 className="text-start">{userName}&apos;s Repositories</h3>
           </div>
         </div>
 
         {repositories.length > 0 && (
           <div className="container">
             {repositories.map(({ id, name, stargazerCount, watchers: { totalCount } }: any) => (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
               <div
                 className="row py-2 mx-0 border-bottom hover-effect"
                 key={id}

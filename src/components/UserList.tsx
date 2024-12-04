@@ -37,6 +37,7 @@ const UserList: React.FC<UserListProps> = ({ users }) => {
 
         <div className="row">
           {users.map(({ node }) => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
             <div
               key={node.id}
               className="col d-inline-block"

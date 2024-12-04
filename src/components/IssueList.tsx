@@ -42,7 +42,7 @@ const IssueList: React.FC<IssueListProps> = ({
     <>
       <div className="row pb-3">
         <div className="col">
-          <h3 className="text-start">{repoName}'s Open Issues</h3>
+          <h3 className="text-start">{repoName}&apos;s Open Issues</h3>
         </div>
         <div className="col text-end">
           <Button variant="primary" onClick={() => setIsShow(true)} className="mb-3">

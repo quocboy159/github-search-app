@@ -9,6 +9,7 @@ const PAGE_SIZE = 10;
 type UserRepositoriesProps = {
   userName: string;
   loading: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   error?: any;
   repositories: any[];
   currentPage: number;
